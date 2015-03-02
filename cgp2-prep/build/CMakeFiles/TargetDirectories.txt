@@ -1,0 +1,7 @@
+/home/chuck/Downloads/Downloads/cgp2-prep/build/common/CMakeFiles/common.dir
+/home/chuck/Downloads/Downloads/cgp2-prep/build/CMakeFiles/doc.dir
+/home/chuck/Downloads/Downloads/cgp2-prep/build/tesselate/CMakeFiles/tess.dir
+/home/chuck/Downloads/Downloads/cgp2-prep/build/tesselate/CMakeFiles/tess_automoc.dir
+/home/chuck/Downloads/Downloads/cgp2-prep/build/tesselate/CMakeFiles/tessviewer.dir
+/home/chuck/Downloads/Downloads/cgp2-prep/build/tesselate/CMakeFiles/tessviewer_automoc.dir
+/home/chuck/Downloads/Downloads/cgp2-prep/build/test/CMakeFiles/tilertest.dir
