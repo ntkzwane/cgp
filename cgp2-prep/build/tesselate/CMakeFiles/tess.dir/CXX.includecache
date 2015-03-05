@@ -75,6 +75,8 @@ string.h
 -
 iostream
 -
+unordered_set
+-
 limits
 -
 stack
@@ -92,6 +94,10 @@ vector
 stdio.h
 -
 iostream
+-
+string
+-
+unordered_set
 -
 mesh.h
 /home/chuck/Downloads/Downloads/cgp2-prep/tesselate/mesh.h

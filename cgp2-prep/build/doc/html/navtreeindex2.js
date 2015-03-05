@@ -1,5 +1,7 @@
 var NAVTREEINDEX2 =
 {
+"functions_u.html":[2,3,0,18],
+"functions_v.html":[2,3,0,19],
 "functions_vars.html":[2,3,2],
 "functions_w.html":[2,3,0,20],
 "functions_x.html":[2,3,0,21],
@@ -32,8 +34,8 @@ var NAVTREEINDEX2 =
 "namespacemembers_func.html":[1,1,1],
 "namespacemembers_vars.html":[1,1,2],
 "namespaces.html":[1,0],
-"namespacestats.html":[2,0,3],
 "namespacestats.html":[1,0,0],
+"namespacestats.html":[2,0,3],
 "namespacestats_1_1detail.html":[1,0,0,0],
 "namespacestats_1_1detail.html":[2,0,3,0],
 "obj_8cpp.html":[3,0,0,6],

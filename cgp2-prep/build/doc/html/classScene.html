@@ -168,7 +168,7 @@ Public Attributes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a2683f694189bb3f94f2558298d8f8886"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classScene.html#a2683f694189bb3f94f2558298d8f8886">genVizRender</a> (<a class="el" href="classView.html">View</a> *view, <a class="el" href="structShapeDrawData.html">ShapeDrawData</a> &amp;sdd)</td></tr>
-<tr class="memdesc:a2683f694189bb3f94f2558298d8f8886"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate triangle mesh geometry for OpenGL rendering of all leaf nodes.  <a href="#a2683f694189bb3f94f2558298d8f8886">More...</a><br/></td></tr>
+<tr class="memdesc:a2683f694189bb3f94f2558298d8f8886"><td class="mdescLeft">&#160;</td><td class="mdescRight">keep track of deallocated addresses  <a href="#a2683f694189bb3f94f2558298d8f8886">More...</a><br/></td></tr>
 <tr class="separator:a2683f694189bb3f94f2558298d8f8886"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d8e50c7a58bca8a447c3591ba2dc061"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classScene.html#a9d8e50c7a58bca8a447c3591ba2dc061">genVoxRender</a> (<a class="el" href="classView.html">View</a> *view, <a class="el" href="structShapeDrawData.html">ShapeDrawData</a> &amp;sdd)</td></tr>
 <tr class="memdesc:a9d8e50c7a58bca8a447c3591ba2dc061"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate triangle mesh geometry for OpenGL rendering of voxel structure.  <a href="#a9d8e50c7a58bca8a447c3591ba2dc061">More...</a><br/></td></tr>
@@ -182,6 +182,9 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a76e60b74644d6eac92409c1d7522f588"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classScene.html#a76e60b74644d6eac92409c1d7522f588">treeClear</a> (<a class="el" href="classSceneNode.html">SceneNode</a> *root)</td></tr>
 <tr class="memdesc:a76e60b74644d6eac92409c1d7522f588"><td class="mdescLeft">&#160;</td><td class="mdescRight">Walk CSG tree and deallocate nodes.  <a href="#a76e60b74644d6eac92409c1d7522f588">More...</a><br/></td></tr>
 <tr class="separator:a76e60b74644d6eac92409c1d7522f588"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cd524d4e8bd143a774dafbc9d02bfda"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1cd524d4e8bd143a774dafbc9d02bfda"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>popLeaves</b> (<a class="el" href="classSceneNode.html">SceneNode</a> *root, std::vector&lt; <a class="el" href="classShapeNode.html">ShapeNode</a> * &gt; &amp;leafList)</td></tr>
+<tr class="separator:a1cd524d4e8bd143a774dafbc9d02bfda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -212,6 +215,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <a class="el" href="classMesh.html">Mesh</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classScene.html#a484bdf5718befcc575e4420bb10bb1bd">voxmesh</a></td></tr>
 <tr class="memdesc:a484bdf5718befcc575e4420bb10bb1bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">isosurface of voxel volume <br/></td></tr>
 <tr class="separator:a484bdf5718befcc575e4420bb10bb1bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32c3ae44242820d876410cfe9b54baf2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a32c3ae44242820d876410cfe9b54baf2"></a>
+std::unordered_set&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>delSet</b></td></tr>
+<tr class="separator:a32c3ae44242820d876410cfe9b54baf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>CSG Tree that can be evaluated to produce a volumetric representation. </p>
@@ -326,8 +332,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </table>
 </div><div class="memdoc">
 
-<p>Generate triangle mesh geometry for OpenGL rendering of all leaf nodes. </p>
-<p>Does not capture set operations at all (except where all set operations are a union) </p>
+<p>keep track of deallocated addresses </p>
+<p>Generate triangle mesh geometry for OpenGL rendering of all leaf nodes. Does not capture set operations at all (except where all set operations are a union) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir"></td><td class="paramname">view</td><td>current view parameters </td></tr>
@@ -342,7 +348,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>parts of <a class="el" href="classScene.html#a2683f694189bb3f94f2558298d8f8886" title="Generate triangle mesh geometry for OpenGL rendering of all leaf nodes. ">Scene::genVizRender</a> to be completed for CGP Assignment3 </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>parts of <a class="el" href="classScene.html#a2683f694189bb3f94f2558298d8f8886" title="keep track of deallocated addresses ">Scene::genVizRender</a> to be completed for CGP Assignment3 </dd></dl>
 
 </div>
 </div>
@@ -583,7 +589,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="classScene.html">Scene</a></li>
-    <li class="footer">Generated on Mon Mar 2 2015 21:01:59 for CGP by
+    <li class="footer">Generated on Thu Mar 5 2015 16:30:18 for CGP by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

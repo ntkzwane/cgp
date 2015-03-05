@@ -30,7 +30,7 @@ void TestMesh::testMeshing()
     // CPPUNIT_ASSERT(mesh->basicValidity());
     // CPPUNIT_ASSERT(!mesh->manifoldValidity()); // bunny has known holes in the bottom
     // cerr << "BUNNY TEST PASSED" << endl;
-    scene->sampleScene();
+    scene->expensiveScene();
 }
 
 //#if 0 /* Disabled since it crashes the whole test suite */

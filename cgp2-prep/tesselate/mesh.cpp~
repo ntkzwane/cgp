@@ -37,8 +37,12 @@ void Sphere::genGeometry(ShapeGeometry * geom, View * view)
 
 bool Sphere::pointContainment(cgp::Point pnt)
 {
-    // stub, needs completing
-    return true;
+    cgp::Vector distance;
+    distance.diff(c,pnt);
+    float distSqrd = distance.sqrdLength();
+    if(distSqrd < r*r){
+        return true;
+    }else{return false;}
 }
 
 void Cylinder::genGeometry(ShapeGeometry * geom, View * view)
@@ -633,11 +637,11 @@ bool Mesh::readSTL(string filename)
         tris.push_back(t);
     }
     fclose(f);
-    cout << " -- number of faces -- " << numFaces << endl;
+cout << " --- number of faces -- " << numFaces << endl;
     // STL provides a triangle soup so merge vertices that are coincident
-    mergeVerts();
+    /*mergeVerts();
     // normal vectors at vertices are needed for rendering so derive from incident faces
-    deriveVertNorms();
+    deriveVertNorms();*/
     return true;
 }
 

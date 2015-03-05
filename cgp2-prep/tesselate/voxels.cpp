@@ -79,7 +79,8 @@ void VoxelVolume::setFrame(cgp::Point corner, cgp::Vector diag)
 
 bool VoxelVolume::set(int x, int y, int z, bool setval)
 {
-    // stub, needs completing
+    origin = cgp::Point(x,y,z);
+    
     return true;
 }
 

@@ -9,6 +9,8 @@
 #include <vector>
 #include <stdio.h>
 #include <iostream>
+#include <string>
+#include <unordered_set>
 #include "mesh.h"
 #include "voxels.h"
 
@@ -61,6 +63,7 @@ private:
     float voxsidelen;               ///< side length of a single voxel
     bool voxactive;                 ///< voxel representation has been created
     Mesh voxmesh;                   ///< isosurface of voxel volume
+    std::unordered_set<std::string>  delSet; /// keep track of deallocated addresses
 
     /**
      * Generate triangle mesh geometry for OpenGL rendering of all leaf nodes. 
@@ -107,6 +110,8 @@ private:
      * @param root root node of CSG tree
      */
     void treeClear(SceneNode* root);
+
+    void popLeaves(SceneNode* root, std::vector<ShapeNode*> &leafList);
 
 public:
 

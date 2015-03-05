@@ -7,6 +7,7 @@
 #include <math.h>
 #include <string.h>
 #include <iostream>
+#include <unordered_set>
 #include <limits>
 #include <stack>
 #include <glm/gtc/matrix_transform.hpp>
@@ -29,32 +30,42 @@ bool Scene::genVizRender(View * view, ShapeDrawData &sdd)
     // TO DO HERE, traverse csg tree pushing leaf nodes (shapes) to leaves vector
     // note: this displays all the constituent shapes in the tree but doesn't apply any set operations to them
     // so it is purely a pre-visualization
+    
+    popLeaves(csgroot,leaves);
+cout << " -- done popLeaves(..) -- \n";
+    /*
     std::stack<SceneNode*> nodeStack;
     SceneNode* curRoot = csgroot;
-    
-    cout << " -- in tree traverse for Scene::genVizRender(..) \n";
     while(!nodeStack.empty() or curRoot != nullptr){
         ShapeNode* curNode;
         OpNode* curOp;
         try{
-            curNode = dynamic_cast<ShapeNode*>(curRoot);
-            curOp = dynamic_cast<OpNode*>(curRoot);
+cout << " -- in loop, count -- " << endl;
             // check if the current node exists, if not, there are no more left nodes
             if(curRoot != nullptr){
-            
+cout << " -- to cast op -- \n";
+                curOp = dynamic_cast<OpNode*>(curRoot);
+cout << " -- op casted -- \n";
                 nodeStack.push(curRoot);
-                if(curOp != nullptr){curRoot = curOp->left;} ////----------///// check if this doesn't stop us from visiting each node
+                curRoot = dynamic_cast<ShapeNode*>(curOp->left);
+cout << " -- left set -- \n";
             }else{
+cout << "-- to cast op -- \n";
+                curNode = dynamic_cast<ShapeNode*>(curRoot);
+cout << "-- shape casted -- \n";
                 curRoot = nodeStack.top();
                 nodeStack.pop();
                 // if it is a ShapeNode, add to list of leaves, else continue traverse
                 if(curNode != nullptr){leaves.push_back(curNode);
-                }else if(curOp != nullptr){curRoot = curOp->right;} ////----------///// check if this doesn't stop us from visiting each node
+                }else{
+                    curRoot = dynamic_cast<ShapeNode*>(curOp->right);
+cout << " -- left set -- \n";
+                }
             }
         }catch(exception &e){
             cerr << " at Scene::genVizRender - encoutered problem while casting" << endl;
         }
-    }
+    }*/
 
     // traverse leaf shapes generating geometry
     for(i = 0; i < (int) leaves.size(); i++)
@@ -132,36 +143,44 @@ void Scene::treeClear(SceneNode* root){
     // cast the current "root" node as one of the two node types, using dynamic casting
     ShapeNode* curNode;
     OpNode* curOp;
-    /*int opCounter = 0;
-    int shapeCounter = 0;*/
     try{
-        cout << " -- entering root node -- \n";
-        curNode = dynamic_cast<ShapeNode*>(root);
-        curOp = dynamic_cast<OpNode*>(root);
-
-        if(root != nullptr){
-            // if the current node is an OpNode, traverse deeper, else delete it
-            if(curOp != nullptr){
-                cout <<  " -- entering left node -- \n";
+        // check for repeated addresses
+        std::string temp = std::to_string((long long)root);
+        if(root && delSet.find(temp)==delSet.end()){
+            curNode = dynamic_cast<ShapeNode*>(root);
+            curOp = dynamic_cast<OpNode*>(root);
+            if(curOp){
                 treeClear(curOp->left);// clear left subtree
-
-                cout <<  " -- entering right node -- \n";
-                treeClear(curOp->right);// clear right subtree
-
-                // if current node is an OpNode with no childern, delete it
-                /*ShapeNode* lefNode = dynamic_cast<ShapeNode*>(curOp->left);                
-                ShapeNode* rigNode = dynamic_cast<ShapeNode*>(curOp->right);
-                if(lefNode == nullptr && rigNode == nullptr){
-                    cout << " -- OpNode with no childern deleted -- \n";
-                    delete curOp;
-                }* //gives segmentation fault */
-            }else if(curNode != nullptr){
-                cout << " -- shape deleted -- \n";
-                delete curNode;
+                treeClear(curOp->right);// clear right subtree   
             }
-        }////////// ---- else{cout << " -- op deleted -- \n";delete curOp;}
+            delSet.insert(temp); // add deleted node to list of deallocated addresses
+            delete curNode;
+        }
+    }catch(exception &e){cerr << " at Scene::treeClear(..) - encountered problem when casting" << endl;}
+}
 
-    }catch(exception &e){cerr << " at Scene::treeClear - encountered problem when casting" << endl;}
+void Scene::popLeaves(SceneNode* root, std::vector<ShapeNode*> &leafList){    
+    if(root){
+cout << " -- in --\n";
+        try{
+            ShapeNode* curNode;
+            OpNode* curOp;
+cout << " -- casting -- \n";
+            curNode = dynamic_cast<ShapeNode*>(root);
+            curOp = dynamic_cast<OpNode*>(root);
+            
+            if(curOp){
+cout << " -- left -- \n";
+                popLeaves(curOp->left, leafList);
+cout << " -- right -- \n";
+                popLeaves(curOp->right, leafList);
+            }
+            if(curNode){
+cout << " -- pushed -- \n";
+                leafList.push_back(curNode);
+            }
+        }catch(exception e){cerr << " at Scene::popLeaves(..)";}
+    }
 }
 
 void Scene::clear()
@@ -187,6 +206,20 @@ bool Scene::bindGeometry(View * view, ShapeDrawData &sdd)
 void Scene::voxSetOp(SetOp op, VoxelVolume *leftarg, VoxelVolume *rightarg)
 {
     // stub, needs completing
+    // of the form leftarg = leftarg op rightarg
+    switch(op){
+        case SetOp::UNION:
+
+            break;
+        case SetOp::INTERSECTION:
+
+            break;
+        case SetOp::DIFFERENCE:
+
+            break;
+        default:
+            cerr << " at Scene::voxSetOp - invalid operation";
+        }
 }
 
 void Scene::voxWalk(SceneNode *root, VoxelVolume *voxels)
